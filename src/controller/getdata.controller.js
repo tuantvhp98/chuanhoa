@@ -11,100 +11,7 @@ let getdata = async (req, res) => {
         console.log(err)
     }
 }
-let gettest = async (req, res) => {
-    try {
-        let test = {
-            username: "test",
-            password: "test2"
-        }
-        let test2 = await testSchema.createNew(test)
-        res.send(test2)
-    } catch (err) {
-        console.log(err)
-    }
-}
-let convertgia = () => {
 
-    setTimeout(async () => {
-        let a = await data.find({ status: 0 }).limit(20);
-        a.map(e => {
-            let price = e.price;
-            let t = price.split(" ")
-            let i = 0
-            let cvpricety = 0
-            let cvpricetrieu = 0
-            let cvpriced = 0
-            let cvprice = 0
-            if (t.length <= 1) {
-                cvprice = price
-            } else {
-                for (i; i < t.length; i++) {
-                    if (t[i] == "tỷ") {
-                        cvpricety = parseFloat(t[i - 1]) * 1000000000
-                    } else {
-                        cvpricety = 0
-                    }
-                    if (t[i] == "triệu") {
-                        cvpricetrieu = parseFloat(t[i - 1]) * 1000000
-                    } else {
-                        cvpricetrieu = 0
-                    }
-                    if (t[i] == "đ") {
-                        cvpriced = parseFloat(t[i - 1]) * 1000000000
-                    } else {
-                        cvpriced = 0
-                    }
-
-                }
-                cvprice = parseInt(cvpricety + cvpricetrieu + cvpriced)
-            }
-
-            data.updateOne({ price: e.price }, { $set: { price: cvprice, status: 1 } }, (err, res) => {
-                if (err) console.log(err)
-                console.log('update success' + e.price + " " + cvprice)
-            })
-
-        })
-
-    }, 2000)
-    convertgia()
-}
-
-function getlatlon(address) {
-    return new Promise((resolve, reject) => {
-        request({
-            url: `https://apis.wemap.asia/geocode-3/api?q=${address}&key=vpstPRxkBBTLaZkOaCfAHlqXtCR`,
-            json: true
-        }, (err, header, body) => {
-            if (err) {
-                reject(err)
-            } else {
-                if (body) {
-                    let a = body.features[0]
-                    if (a == null) {
-                        console.log("rong")
-                    } else {
-                        let b = a.geometry.coordinates
-                        const latlon = {
-                            lat: b[1],
-                            lon: b[0]
-                        }
-                        console.log(latlon)
-                        resolve(latlon)
-                    }
-                } else {
-                    //console.log(body)
-                    reject()
-                }
-            }
-        })
-    })
-}
-function run(){
-    addUtilities().then(e=>{
-        addUtilities()
-    })
-}
 async function addUtilities() {
     let a = await data.find({ status: 3 }).limit(4)
     a.map((e, index) => {     
@@ -233,7 +140,6 @@ function toRadian(degree) {
     return degree * Math.PI / 180;
 }
 module.exports = {
-    getdata: getdata,
-    gettest: gettest
+    getdata: getdata
 
 }
