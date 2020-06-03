@@ -1,0 +1,21 @@
+{
+  "name": "chuahoadulieu",
+  "version": "1.0.0",
+  "description": "chuan hoa du lieu bat dong san",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.7",
+    "mongoose": "^5.9.14",
+    "mongoose-double": "0.0.1",
+    "mongoose-int32": "^0.3.1",
+    "request": "^2.88.2"
+  }
+}
